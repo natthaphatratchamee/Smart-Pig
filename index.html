@@ -1,10 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-  <title>Smart Pig</title>
+<meta charset="UTF-8">
+<title>Smart Pig – ผู้ช่วยสัตวบาล</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  background:#f4f6f8;
+  padding:20px;
+}
+.box{
+  max-width:600px;
+  margin:auto;
+  background:white;
+  padding:20px;
+  border-radius:12px;
+}
+select,button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+}
+.result{
+  margin-top:20px;
+  background:#e8f5e9;
+  padding:15px;
+  border-radius:10px;
+}
+.warning{
+  color:red;
+  margin-top:10px;
+}
+</style>
 </head>
+
 <body>
-  <h1> Smart Pig ทำงานแล้ว</h1>
-  <p>ถ้าเห็นหน้านี้ แปลว่า GitHub Pages ใช้ได้แน่นอน</p>
+<div class="box">
+<h2> Smart Pig</h2>
+<p>ผู้ช่วยวางแผนการจัดการหมู</p>
+
+<label>ระยะการเลี้ยง</label>
+<select id="stage">
+  <option>อนุบาล</option>
+  <option>ขุน</option>
+  <option>พ่อแม่พันธุ์</option>
+</select>
+
+<label>น้ำหนัก</label>
+<select id="weight">
+  <option>ต่ำกว่า 30 กก.</option>
+  <option>30–60 กก.</option>
+  <option>มากกว่า 60 กก.</option>
+</select>
+
+<button onclick="calculate()">คำนวณการจัดการ</button>
+
+<div class="result" id="result"></div>
+
+<p style="font-size:12px;color:gray">
+เครื่องมือนี้เป็นแนวทางการจัดการฟาร์ม  
+ไม่ใช่การวินิจฉัยแทนสัตวแพทย์
+</p>
+</div>
+
+<script>
+const pigKnowledge={
+ "อนุบาล":{
+  feed:"อาหารโปรตีน 20–22%",
+  reason:"ช่วงสร้างเนื้อเยื่อ โตเร็ว ต้องการโปรตีนสูง",
+  vaccine:"PRRS, PCV2",
+  housing:"ควบคุมอุณหภูมิ 28–32°C"
+ },
+ "ขุน":{
+  feed:"อาหารโปรตีน 16–18%",
+  reason:"เน้นเพิ่มน้ำหนัก โปรตีนสูงเกินไปสิ้นเปลือง",
+  vaccine:"FMD, PRRS",
+  housing:"โรงเรือนโปร่ง ระบายอากาศ"
+ },
+ "พ่อแม่พันธุ์":{
+  feed:"ควบคุมพลังงาน ไม่ให้อ้วน",
+  reason:"อ้วนเกินไปผสมติดยาก",
+  vaccine:"วัคซีนก่อนผสมและก่อนคลอด",
+  housing:"แยกคอก ลดความเครียด"
+ }
+};
+
+function calculate(){
+ const stage=document.getElementById("stage").value;
+ const weight=document.getElementById("weight").value;
+ let d=pigKnowledge[stage];
+ let warn="";
+
+ if(stage==="ขุน" && weight==="ต่ำกว่า 30 กก."){
+  warn=" น้ำหนักต่ำกว่ามาตรฐาน อาจมีปัญหาโภชนาการ";
+ }
+
+ document.getElementById("result").innerHTML=
+  `<b> อาหาร:</b> ${d.feed}<br>
+   <b> เหตุผล:</b> ${d.reason}<br>
+   <b> วัคซีน:</b> ${d.vaccine}<br>
+   <b> โรงเรือน:</b> ${d.housing}<br>
+   <div class="warning">${warn}</div>`;
+}
+</script>
+
 </body>
 </html>
