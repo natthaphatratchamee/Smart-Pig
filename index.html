@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>เครื่องคำนวณการจัดการหมู</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 10px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>🐷 เครื่องคำนวณการจัดการหมู</h2>
+
+    <label>สายพันธุ์</label>
+    <select id="breed">
+        <option>สามสาย</option>
+        <option>Duroc</option>
+        <option>Landrace</option>
+    </select>
+
+    <label>ระยะการเลี้ยง</label>
+    <select id="stage">
+        <option>อนุบาล</option>
+        <option>ขุน</option>
+        <option>พ่อแม่พันธุ์</option>
+    </select>
+
+    <label>น้ำหนัก</label>
+    <select id="weight">
+        <option>ต่ำกว่า 30 กก.</option>
+        <option>30–60 กก.</option>
+        <option>มากกว่า 60 กก.</option>
+    </select>
+
+    <label>เป้าหมาย</label>
+    <select id="goal">
+        <option>ขุนขาย</option>
+        <option>ทำพ่อแม่พันธุ์</option>
+    </select>
+
+    <button onclick="calculate()">คำนวณการจัดการ</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function calculate() {
+    let stage = document.getElementById("stage").value;
+    let result = "";
+
+    if (stage === "ขุน") {
+        result = "📌 แนะนำอาหารโปรตีน 16–18%<br>💉 วัคซีน PRRS, FMD<br>🏠 โรงเรือนโปร่ง ระบายอากาศดี";
+    } else if (stage === "อนุบาล") {
+        result = "📌 อาหารโปรตีนสูง 20%<br>💉 วัคซีนพื้นฐาน<br>🔥 ควบคุมอุณหภูมิ";
+    } else {
+        result = "📌 โปรแกรมพ่อแม่พันธุ์<br>💉 วัคซีนก่อนผสม<br>🧬 จัดการสภาพร่างกาย";
+    }
+
+    document.getElementById("result").innerHTML = result;
+}
+</script>
+
+</body>
+</html>
